@@ -7,13 +7,16 @@ import AuthForm from "./components/AuthForm";
 import "./App.css";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ProtectedRoutes from "./router/ProtectedRoutes";
+import MainLayout from "./layouts/mainLayout/MainLayout";
 
 function App() {
   return (
     <>
       <Routes>
         <Route element={<ProtectedRoutes />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route element={<MainLayout/>}>
+            <Route path="/" element={<Dashboard />} />
+          </Route>
         </Route>
 
         <Route path="/login" element={<AuthLayout><AuthForm /></AuthLayout>} />
