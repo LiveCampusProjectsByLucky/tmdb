@@ -1,33 +1,57 @@
 import { useEffect, useState } from "react";
-import { getMovieImage, getMoviesTrending } from "../../api/apiRequest";
 import { useAppSelector } from "../../app/hooks";
-import { Result } from "../../types/MoviesTrandingI";
+import { MovieResultsI } from "../../types/MoviesI";
+import { getMovies } from "../../api/moviesRequest";
+import styled from "styled-components";
 
 export default function Dashboard() {
 // Redux
   const auth = useAppSelector((state) => state.auth);
 
 //   States
-  const [movies, setMovies] = useState<Result[]>([]);
+  const [movies, setMovies] = useState<MovieResultsI[]>([]);
 
   useEffect(() => {
     if (!auth.api_key) return;
 
-    const fetchMovies = async () => {
-      const res = await getMoviesTrending(auth.api_key as string);
-      setMovies(res.results);
-    };
+    (async () => {
+      const res = await getMovies(auth.api_key as string);
+      
+      if (res) {
+        setMovies(res.results);
+      }
+    })()
 
-    fetchMovies();
   }, [])
 
 
 
     return (
-        <ul>
+        <DashboardStyled>
             {movies.map((movie) => (
-                <li key={movie.id}>{movie.title} <img src={getMovieImage(movie.backdrop_path)} /></li>
+                <li key={movie.id}><img src={movie.poster_path} /> {movie.title}</li>
             ))}
-        </ul>
+        </DashboardStyled>
     )
 }
+
+
+const DashboardStyled = styled.ul`
+  display: flex;
+  gap: 10px;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    img {
+      width: 200px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  }
+`;

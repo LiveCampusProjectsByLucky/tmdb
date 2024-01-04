@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { loginViaApi } from "../api/apiRequest";
 import { useAppDispatch } from "../app/hooks";
 import { login } from "../features/auth/authSlices";
 import { AuthenticationI } from "../types/auth";
 import colors from "../variables/colors";
 import general from "../variables/general";
 import { useNavigate } from "react-router-dom";
+import { loginViaApi } from "../api/authRequest";
 
 export default function AuthForm() {
   // Redux

@@ -1,12 +1,11 @@
-export interface MoviesTrandingI {
+export interface MoviesI {
   page: number;
-  results: Result[];
+  results: MovieResultsI[];
   total_pages: number;
   total_results: number;
 }
 
-export interface Result {
-  image: string;
+export interface MovieResultsI {
   adult: boolean;
   backdrop_path: string;
   id: number;

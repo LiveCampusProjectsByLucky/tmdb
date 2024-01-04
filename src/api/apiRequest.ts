@@ -1,49 +1,19 @@
-import { ImagesI } from "../types/ImagesI";
-import { MoviesTrandingI } from "../types/MoviesTrandingI";
-import { AuthenticationI } from "../types/auth";
-
-export async function loginViaApi(api_key: string) {
-  const url = "https://api.themoviedb.org/3/authentication?";
-  const params = {
-      api_key,
-  };
-
-  return await fetchData<AuthenticationI>(url, params);
-}
-
-
-
-// MOVIES
-export async function getMoviesTrending(api_key: string, page?: number) {
-  const url = "https://api.themoviedb.org/3/discover/movie?";
-  const params = {
-    api_key,
-    page,
-  };
-
-  return await fetchData<MoviesTrandingI>(url, params);
-};
-
-
 
 // https://image.tmdb.org/t/p/w3840_and_h2160_face/n96bSvMRmrC3Y8VIs7LMNMyXkwp.jpg
 export function getMovieImage(file_path: string, size: string = "md") {
   const sizes = {
-    md: {
-      width: 500,
-      height: 750,
-    },
-    lg: {
-      width: 300,
-      height: 450,
-    },
-    xl: {
-      width: 3840,
-      height: 2160,
-    },
+    xxxs: "w45",
+    xxs: "w92",
+    xs: "w154",
+    sm: "w185",
+    md: "w300",
+    lg: "w500",
+    xl: "w780",
+    xxl: "w1280",
+    original: "original",
   }
 
-  return `https://image.tmdb.org/t/p/w${sizes[size as keyof typeof sizes].width}_and_h${sizes[size as keyof typeof sizes].height}_face${file_path}`;
+  return `https://image.tmdb.org/t/p/${sizes[size as keyof typeof sizes]}${file_path}`;
 }
 
 // ## Add Supported Image Sizes  
@@ -72,12 +42,3 @@ export function getMovieImage(file_path: string, size: string = "md") {
 
 // Original Size is the size of the uploaded image.  
 // It can be between Minimum Resolution and Maximum Resolution.  
-
-
-// FUNCTIONS
-async function fetchData<D>(url: string, params: {}): Promise<D> {
-  return await fetch(url + new URLSearchParams(params))
-    .then((response) => response.json())
-    .then((data) => data)
-    .catch((error) => error);
-};

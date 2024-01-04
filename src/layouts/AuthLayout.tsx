@@ -45,7 +45,7 @@ const AuthLayoutStyled = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-    max-width: 500px;
+    max-width: 35vw;
     width: 100%;
     padding: 20px 40px;
   }
