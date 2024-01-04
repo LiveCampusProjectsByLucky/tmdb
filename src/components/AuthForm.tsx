@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { loginViaApi } from "../api/auth";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { loginViaApi } from "../api/apiRequest";
+import { useAppDispatch } from "../app/hooks";
 import { login } from "../features/auth/authSlices";
 import { AuthenticationI } from "../types/auth";
 import colors from "../variables/colors";
@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function AuthForm() {
   // Redux
-  const auth = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   // States

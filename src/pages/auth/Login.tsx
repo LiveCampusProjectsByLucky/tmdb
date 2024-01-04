@@ -1,4 +1,4 @@
-import { loginViaApi } from "../../api/auth";
+import { loginViaApi } from "../../api/apiRequest";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { login } from "../../features/auth/authSlices";
 import { AuthenticationI } from "../../types/auth";
@@ -11,8 +11,8 @@ export default function Login() {
     e.preventDefault();
 
     const api_key = e.currentTarget.apikey.value;
-    // dispatch(login(api_key))
-    await loginViaApi(api_key).then((res: AuthenticationI) => {
+    await loginViaApi(api_key)
+    .then((res: AuthenticationI) => {
       console.table(res);
       if (res.success) {
         dispatch(login(api_key));
@@ -21,6 +21,7 @@ export default function Login() {
       }
     });
   };
+
 
   return (
     <>

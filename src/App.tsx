@@ -5,14 +5,13 @@ import { Routes, Route } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
 import AuthForm from "./components/AuthForm";
 import "./App.css";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
-  const apiKey = "79f822ec6a74eb1a06b4197b3d7dcdf5";
-
   return (
     <>
       <Routes>
-        <Route path="/" element={<h1>Hello</h1>} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<AuthLayout><AuthForm /></AuthLayout>} />
       </Routes>
     </>
