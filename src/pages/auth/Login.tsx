@@ -1,4 +1,4 @@
-import { loginViaApi } from "../../api/apiRequest";
+import { loginViaApi } from "../../api/authRequest";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { login } from "../../features/auth/authSlices";
 import { AuthenticationI } from "../../types/auth";
