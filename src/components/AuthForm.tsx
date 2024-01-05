@@ -6,27 +6,30 @@ import colors from "../variables/colors";
 import general from "../variables/general";
 import { useNavigate } from "react-router-dom";
 import { loginViaApi } from "../api/authRequest";
+import { useState } from "react";
 
 export default function AuthForm() {
   // Redux
   const dispatch = useAppDispatch();
 
-  // States
+  // Init
   const navigate = useNavigate();
+  const [error, setError] = useState<string>("");
 
   // Handlers
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setError("");
+
     const api_key = e.currentTarget.apikey.value;
 
     await loginViaApi(api_key).then((res: AuthenticationI) => {
-      console.table(res);
       if (res.success) {
         dispatch(login(api_key));
         navigate("/");
       } else {
-        alert(res.status_message);
+        setError(res.status_message);
       }
     });
   };
@@ -42,6 +45,9 @@ export default function AuthForm() {
         <input name="apikey" type="apikey" placeholder="API KEY" />
         <button type="submit">Login</button>
       </form>
+
+      {error && <div className="error">{error}</div>}
+
     </AuthFormStyled>
   );
 }
@@ -73,5 +79,11 @@ const AuthFormStyled = styled.div`
       color: ${colors.white};
       background: ${colors.darkgreen};
     }
+  }
+
+  .error {
+    color: ${colors.red};
+    margin-top: 10px;
+    text-align: center;
   }
 `;

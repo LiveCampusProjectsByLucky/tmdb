@@ -39,6 +39,7 @@ export default function Slider() {
 const SliderStyled = styled.section`
     background-color: #000;
     height: 75vh;
+    min-height: 500px;
     width: 100%;
     color: #fff;
     font-size: 1.2rem;
@@ -55,7 +56,7 @@ const SliderStyled = styled.section`
         left: 0;
         background: linear-gradient(to right, #000, transparent);
         width: 100%;
-        height: 75vh;
+        height: 100%;
     }
 
     > div {

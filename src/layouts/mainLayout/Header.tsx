@@ -4,6 +4,7 @@ import { RiSearch2Line } from "react-icons/ri";
 import colors from "../../variables/colors";
 import { useAppDispatch } from "../../app/hooks";
 import { logout } from "../../features/auth/authSlices";
+import { NavLink } from "react-router-dom";
 
 
 export default function Header() {
@@ -18,9 +19,8 @@ export default function Header() {
 
             <nav>
                 <ul>
-                    <li>Home</li>
-                    <li>Dashboard</li>
-                    <li>Movies</li>
+                    <li><NavLink to={"/"}>Dashboard</NavLink></li>
+                    <li><NavLink to={"/movies"}>Movies</NavLink></li>
                 </ul>
 
                 <ul>
@@ -47,6 +47,25 @@ const HeaderStyled = styled.header`
     left: 0;
     right: 0;
     z-index: 999;
+    margin: 25px 0;
+
+    a {
+        text-decoration: none;
+        color: #fff;
+
+        &.active {
+            &:after {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 2px;
+                background-color: ${colors.white};
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+            }
+        }
+    }
 
     nav {
         display: flex;
