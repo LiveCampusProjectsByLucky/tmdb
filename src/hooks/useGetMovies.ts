@@ -1,7 +1,7 @@
 import { useAppSelector } from "../app/hooks";
 import { useEffect, useState } from "react";
-import { MovieResultsI } from "../types/MoviesI";
 import { getMovies } from "../api/moviesRequest";
+import { MovieResultsI } from "../types/MovieResultsI";
 
 export default function useGetMovies(): { movies: MovieResultsI[] } {
     // Redux

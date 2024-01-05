@@ -13,7 +13,6 @@ export default function Login() {
     const api_key = e.currentTarget.apikey.value;
     await loginViaApi(api_key)
     .then((res: AuthenticationI) => {
-      console.table(res);
       if (res.success) {
         dispatch(login(api_key));
       } else {

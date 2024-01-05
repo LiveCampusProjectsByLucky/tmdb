@@ -8,6 +8,10 @@ import "./App.css";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ProtectedRoutes from "./router/ProtectedRoutes";
 import MainLayout from "./layouts/mainLayout/MainLayout";
+import Movies from "./pages/movies/Movies";
+import PageLayout from "./layouts/mainLayout/PageLayout";
+import FavoriteMovies from "./pages/account/FavoriteMovies";
+import SearchMovies from "./pages/search/SearchMovies";
 
 function App() {
   return (
@@ -16,7 +20,17 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route element={<MainLayout/>}>
             <Route path="/" element={<Dashboard />} />
+            {/* Movies */}
+            <Route path="/movies" element={<PageLayout title="Movies"><Movies /></PageLayout>} />
+            {/* <Route path="/movies/:id" element={<Movie />} /> */}
+
+
+            <Route path="/search" element={<PageLayout title="Search"><SearchMovies /></PageLayout>} />
+            <Route path="/profile" element={<PageLayout title="Profile"><FavoriteMovies /></PageLayout>} />
+            <Route path="/favorite-movies" element={<PageLayout title="Favorite Movies"><FavoriteMovies /></PageLayout>} />
           </Route>
+
+          
         </Route>
 
         <Route path="/login" element={<AuthLayout><AuthForm /></AuthLayout>} />

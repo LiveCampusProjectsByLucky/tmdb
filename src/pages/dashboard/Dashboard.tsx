@@ -1,14 +1,17 @@
-import Listing from "../../components/Listing";
+import Listing from "../../components/listing/Listing";
 import useGetMovies from "../../hooks/useGetMovies";
 import Slider from "../../layouts/mainLayout/Slider";
-import { MovieResultsI } from "../../types/MoviesI";
+import { MovieResultsI } from "../../types/MovieResultsI";
+import useGetFavoriteMovies from "../../hooks/useGetFavoriteMovies";
 
 export default function Dashboard() {
   const { movies }: { movies: MovieResultsI[] } = useGetMovies();
+  const { favoriteMoviesData } = useGetFavoriteMovies();
 
   return (
     <>
       <Slider />
+      <Listing movies={movies} className="horizontal" favoriteData={favoriteMoviesData} />
       <Listing movies={movies} className="horizontal" />
     </>
   )

@@ -1,13 +1,17 @@
 import styled from "styled-components";
-import { MovieResultsI } from "../types/MoviesI";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { MovieResultsI } from "../../types/MovieResultsI";
+import Card, { FavoriteI } from "./Card";
+import { useEffect } from "react";
 
 interface ListingProps {
   movies: MovieResultsI[];
   className?: "horizontal" | "vertical";
+  favoriteData?: FavoriteI[]
 }
 
-export default function Listing({ movies, className }: ListingProps) {
+export default function Listing({ movies, className, favoriteData }: ListingProps) {
+
   const scrollHorizontally = (
     e: React.MouseEvent<HTMLButtonElement>,
     direction: "left" | "right"
@@ -26,15 +30,16 @@ export default function Listing({ movies, className }: ListingProps) {
     container?.scrollBy({ left: scrollAmount, behavior: "smooth" });
   };
 
+  useEffect(() => {
+    console.log(favoriteData)
+  }, [favoriteData])
+
   return (
     <div>
       <DashboardStyled className={className && className}>
-        {movies.map((movie) => (
+        {movies?.map((movie) => (
           <li key={movie.id}>
-            <article>
-              <img src={movie.poster_path} />
-              <div>{movie.title}</div>
-            </article>
+            <Card data={movie} favoriteData={favoriteData} />
           </li>
         ))}
       </DashboardStyled>
@@ -74,17 +79,6 @@ const DashboardStyled = styled.ul`
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
-
-    article {
-      width: 100%;
-
-      img {
-        height: auto;
-        aspect-ratio: 2/3;
-        object-fit: cover;
-        border-radius: 10px;
-      }
-    }
   }
 
   &.horizontal {

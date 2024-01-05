@@ -1,5 +1,5 @@
 import { MoviesI } from "../types/MoviesI";
-import { fetchData } from "./utilis";
+import { GiveData, fetchData } from "./utilis";
 
 // MOVIES
 export async function getMovies(api_key: string, page?: number) {
@@ -11,16 +11,21 @@ export async function getMovies(api_key: string, page?: number) {
 
     const res = await fetchData<MoviesI>(url, params);
     if (res) {
-        const { results } = res;
-        const resultsWithFullUrl = results.map((result) => {
-            const { backdrop_path, poster_path } = result;
-            return { 
-                ...result, 
-                backdrop_path: `https://image.tmdb.org/t/p/w1280${backdrop_path}`,
-                poster_path: `https://image.tmdb.org/t/p/w185${poster_path}`,
-            };
-        });
+        return res
+    }
+};
 
-        return { ...res, results: resultsWithFullUrl };
+// add to favorite
+export async function addFavoriteMovie(account_id: string, media_id: number, add: boolean) {
+    const url = `https://api.themoviedb.org/3/account/${account_id}/favorite`;
+    const bodyJSON = {
+        media_type: "movie",
+        media_id,
+        favorite: add
+    };
+
+    const res = await GiveData(url, "POST", bodyJSON);
+    if (res) {
+        return res
     }
 };

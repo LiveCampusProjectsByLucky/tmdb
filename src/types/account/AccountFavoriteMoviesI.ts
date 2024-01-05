@@ -1,6 +1,6 @@
-import { MovieResultsI } from "./MovieResultsI";
+import { MovieResultsI } from "../MovieResultsI";
 
-export interface MoviesI {
+export interface AccountFavoriteMoviesI {
   page: number;
   results: MovieResultsI[];
   total_pages: number;

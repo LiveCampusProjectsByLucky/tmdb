@@ -23,10 +23,17 @@ export default function AuthForm() {
     setError("");
 
     const api_key = e.currentTarget.apikey.value;
+    const account_id = e.currentTarget.accountId.value;
 
     await loginViaApi(api_key).then((res: AuthenticationI) => {
       if (res.success) {
-        dispatch(login(api_key));
+        dispatch(login({
+          api_key,
+          account_id,
+          loading: false,
+          error: "",
+          reload: false
+        }));
         navigate("/");
       } else {
         setError(res.status_message);
@@ -42,7 +49,9 @@ export default function AuthForm() {
         TMBD <small>by Lucky Marty</small>
       </h1>
       <form onSubmit={handleSubmit}>
-        <input name="apikey" type="apikey" placeholder="API KEY" />
+        <input name="apikey" type="text" placeholder="API KEY" />
+        <input name="accountId" type="text" placeholder="Account ID" />
+    
         <button type="submit">Login</button>
       </form>
 

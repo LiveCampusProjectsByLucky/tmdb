@@ -6,6 +6,7 @@ export async function loginViaApi(api_key: string) {
     const params = {
         api_key,
     };
+ 
 
     return await fetchData<AuthenticationI>(url, params);
 }

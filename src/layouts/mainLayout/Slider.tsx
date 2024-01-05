@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { MovieResultsI } from "../../types/MoviesI";
 import { useEffect, useState } from "react";
 import useGetMovies from "../../hooks/useGetMovies";
+import { MovieResultsI } from "../../types/MovieResultsI";
+import APP_CONFIGS from "../../variables/configs";
 
 export default function Slider() {
     const [sliderMovies, setSliderMovies] = useState<MovieResultsI>({} as MovieResultsI);
@@ -16,12 +17,12 @@ export default function Slider() {
             setSlide((slide) => (slide + 1) % movies.length);
             setSliderMovies(movies[slide]);
         }, 10000);
-
+        
         return () => clearInterval(interval);
     }, [movies, slide]);
 
     return (
-        <SliderStyled style={{ backgroundImage: `url("${sliderMovies.backdrop_path}")` }}>
+        <SliderStyled style={sliderMovies.backdrop_path ? { backgroundImage: `url("${APP_CONFIGS.img_url}/original${sliderMovies.backdrop_path}")` } : {}}>
             <div>
                 <h1>{sliderMovies.title}</h1>
                 <p>{sliderMovies.overview}</p>
