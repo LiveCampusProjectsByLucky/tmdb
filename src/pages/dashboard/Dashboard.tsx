@@ -1,15 +1,15 @@
 import { MovieResultsI } from "../../types/MoviesI";
 import styled from "styled-components";
-import { useOutletContext } from "react-router-dom";
 import Slider from "../../layouts/mainLayout/Slider";
+import useGetMovies from "../../hooks/useGetMovies";
 
 export default function Dashboard() {
-  const [movies]: [MovieResultsI[]] = useOutletContext();
+  const { movies } : {movies: MovieResultsI[]} = useGetMovies();
 
 
   return (
     <>
-      <Slider movies={movies} />
+      <Slider />
 
       <DashboardStyled>
         {movies.map((movie) => (
