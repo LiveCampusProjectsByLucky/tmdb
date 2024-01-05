@@ -16,7 +16,7 @@ export async function getMovies(api_key: string, page?: number) {
             const { backdrop_path, poster_path } = result;
             return { 
                 ...result, 
-                backdrop_path: `https://image.tmdb.org/t/p/w185${poster_path}`,
+                backdrop_path: `https://image.tmdb.org/t/p/w1280${backdrop_path}`,
                 poster_path: `https://image.tmdb.org/t/p/w185${poster_path}`,
             };
         });

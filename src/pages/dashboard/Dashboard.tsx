@@ -1,44 +1,30 @@
-import { useEffect, useState } from "react";
-import { useAppSelector } from "../../app/hooks";
 import { MovieResultsI } from "../../types/MoviesI";
-import { getMovies } from "../../api/moviesRequest";
 import styled from "styled-components";
+import { useOutletContext } from "react-router-dom";
+import Slider from "../../layouts/mainLayout/Slider";
 
 export default function Dashboard() {
-// Redux
-  const auth = useAppSelector((state) => state.auth);
-
-//   States
-  const [movies, setMovies] = useState<MovieResultsI[]>([]);
-
-  useEffect(() => {
-    if (!auth.api_key) return;
-
-    (async () => {
-      const res = await getMovies(auth.api_key as string);
-      
-      if (res) {
-        setMovies(res.results);
-      }
-    })()
-
-  }, [])
+  const [movies]: [MovieResultsI[]] = useOutletContext();
 
 
+  return (
+    <>
+      <Slider movies={movies} />
 
-    return (
-        <DashboardStyled>
-            {movies.map((movie) => (
-                <li key={movie.id}><img src={movie.poster_path} /> {movie.title}</li>
-            ))}
-        </DashboardStyled>
-    )
+      <DashboardStyled>
+        {movies.map((movie) => (
+          <li key={movie.id}><img src={movie.poster_path} /> {movie.title}</li>
+        ))}
+      </DashboardStyled>
+    </>
+  )
 }
 
 
 const DashboardStyled = styled.ul`
   display: flex;
   gap: 10px;
+  overflow-x: scroll;
 
   li {
     display: flex;
